@@ -2,9 +2,10 @@ const url = require('url')
 
 function getPathWithQueryStringParams ({
   event,
+  replaceProxy,
   query = event.multiValueQueryStringParameters,
   // NOTE: Use `event.pathParameters.proxy` if available ({proxy+}); fall back to `event.path`
-  path = (event.pathParameters && event.pathParameters.proxy && `/${event.pathParameters.proxy}`) || event.path,
+  path = (replaceProxy && event.pathParameters && event.pathParameters.proxy && `/${event.pathParameters.proxy}`) || event.path,
   // NOTE: Strip base path for custom domains
   stripBasePath = '',
   replaceRegex = new RegExp(`^${stripBasePath}`)
@@ -25,8 +26,9 @@ function getEventBody ({
 
 function getRequestValuesFromEvent ({
   event,
+  replaceProxy,
   method = event.httpMethod,
-  path = getPathWithQueryStringParams({ event })
+  path = getPathWithQueryStringParams({ event, replaceProxy })
 }) {
   let headers = {}
 

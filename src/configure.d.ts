@@ -36,6 +36,7 @@ interface ConfigureParams {
   eventSource?: EventSource; // TODO:
   eventSourceRoutes?: { [key in EventSources]?: string };
   respondWithErrors?: boolean;
+  ignorePathReplacement?: boolean;
 }
 
 interface BinarySettings {

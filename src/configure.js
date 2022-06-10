@@ -26,7 +26,8 @@ function configure ({
   eventSourceName: configureEventSourceName,
   eventSource: configureEventFns,
   eventSourceRoutes: configureEventSourceRoutes,
-  respondWithErrors: configureRespondWithErrors = process.env.NODE_ENV === 'development'
+  respondWithErrors: configureRespondWithErrors = process.env.NODE_ENV === 'development',
+  replaceProxy: configureReplaceProxy = true
 } = {}) {
   function proxy ({
     app = configureApp,
@@ -41,7 +42,8 @@ function configure ({
     eventSource = configureEventFns || getEventSource({ eventSourceName }),
     eventSourceRoutes = configureEventSourceRoutes || {},
     log = configureLog,
-    respondWithErrors = configureRespondWithErrors
+    respondWithErrors = configureRespondWithErrors,
+    replaceProxy = configureReplaceProxy
   }) {
     log.debug('SERVERLESS_EXPRESS:PROXY', {
       event: util.inspect(event, { depth: null }),
@@ -49,7 +51,8 @@ function configure ({
       resolutionMode,
       eventSourceName,
       binarySettings,
-      respondWithErrors
+      respondWithErrors,
+      replaceProxy
     })
 
     if (binaryMimeTypes) {
@@ -80,6 +83,7 @@ function configure ({
           binarySettings,
           eventSource,
           eventSourceRoutes,
+          replaceProxy,
           log
         })
       } catch (error) {

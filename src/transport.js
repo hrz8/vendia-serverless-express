@@ -143,9 +143,15 @@ async function forwardRequestToNodeServer ({
   binarySettings,
   eventSource = getEventSource({ eventSourceName }),
   eventSourceRoutes,
+  replaceProxy,
   log
 }) {
-  const requestValues = eventSource.getRequest({ event, context, log })
+  const requestValues = eventSource.getRequest({
+    event,
+    context,
+    replaceProxy,
+    log
+  })
 
   if (!requestValues.path && eventSourceRoutes[eventSourceName]) {
     requestValues.path = eventSourceRoutes[eventSourceName]

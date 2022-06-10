@@ -1,6 +1,6 @@
 const { getRequestValuesFromEvent, getMultiValueHeaders } = require('../utils')
 
-const getRequestValuesFromApiGatewayEvent = ({ event }) => getRequestValuesFromEvent({ event })
+const getRequestValuesFromApiGatewayEvent = ({ event, replaceProxy }) => getRequestValuesFromEvent({ event, replaceProxy })
 
 function getResponseToApiGateway ({
   statusCode,
